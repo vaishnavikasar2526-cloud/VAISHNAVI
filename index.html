@@ -1,119 +1,99 @@
-CREATE DATABASE search_db;
+<?php
+$message = "";
 
-USE search_db;
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $gender = $_POST['gender'];
+    $dob = $_POST['dob'];
 
-CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
-
-INSERT INTO products (name) VALUES
-('Apple iPhone'),
-('Apple Watch'),
-('Samsung Galaxy'),
-('Sony Headphones'),
-('Dell Laptop'),
-('HP Laptop'),
-('Lenovo ThinkPad'),
-('Asus ROG Laptop'),
-('Canon Camera'),
-('Nikon Camera');
+    $message = "Registration Successful! <br>
+                Name: $name <br>
+                Email: $email <br>
+                Gender: $gender <br>
+                Date of Birth: $dob";
+}
+?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AJAX Search Suggestion</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: Arial;
-            margin: 50px;
-        }
+<title>User Registration Form</title>
 
-        #search {
-            width: 300px;
-            padding: 8px;
-        }
+<style>
+body{
+    font-family: Arial;
+    background-color:#f2f2f2;
+}
 
-        #suggestions {
-            width: 300px;
-            border: 1px solid #ccc;
-            display: none;
-            position: absolute;
-            background: white;
-        }
+.container{
+    width:400px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
 
-        .suggestion-item {
-            padding: 8px;
-            cursor: pointer;
-        }
+input, select{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
 
-        .suggestion-item:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
+button{
+    background:#28a745;
+    color:white;
+    padding:10px;
+    border:none;
+    width:100%;
+    font-size:16px;
+}
+
+.result{
+    margin-top:15px;
+    color:green;
+}
+</style>
 </head>
+
 <body>
 
-<h2>Search Products</h2>
+<div class="container">
 
-<input type="text" id="search" placeholder="Type to search...">
-<div id="suggestions"></div>
+<h2>User Registration Form</h2>
 
-<script>
-$(document).ready(function() {
+<form method="post">
 
-    $("#search").keyup(function() {
-        var query = $(this).val();
+<label>Full Name</label>
+<input type="text" name="name" required>
 
-        if (query.length > 0) {
-            $.ajax({
-                url: "search.php",
-                method: "POST",
-                data: { search: query },
-                success: function(data) {
-                    $("#suggestions").html(data);
-                    $("#suggestions").fadeIn();
-                }
-            });
-        } else {
-            $("#suggestions").fadeOut();
-        }
-    });
+<label>Email</label>
+<input type="email" name="email" required>
 
-    $(document).on("click", ".suggestion-item", function() {
-        $("#search").val($(this).text());
-        $("#suggestions").fadeOut();
-    });
+<label>Password</label>
+<input type="password" name="password" required>
 
-});
-</script>
+<label>Gender</label>
+<select name="gender">
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
+</select>
+
+<label>Date of Birth</label>
+<input type="date" name="dob">
+
+<button type="submit">Register</button>
+
+</form>
+
+<div class="result">
+<?php echo $message; ?>
+</div>
+
+</div>
 
 </body>
 </html>
-
-<?php
-
-$conn = new mysqli("localhost", "root", "", "search_db");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if (isset($_POST['search'])) {
-    $search = $conn->real_escape_string($_POST['search']);
-
-    $query = "SELECT name FROM products WHERE name LIKE '%$search%' LIMIT 5";
-    $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<div class='suggestion-item'>" . $row['name'] . "</div>";
-        }
-    } else {
-        echo "<div class='suggestion-item'>No results found</div>";
-    }
-}
-
-$conn->close();
-?>
