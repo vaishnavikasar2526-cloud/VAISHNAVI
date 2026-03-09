@@ -1,22 +1,64 @@
-<?php
-$message = "";
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $gender = $_POST['gender'];
-    $dob = $_POST['dob'];
-
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Registration Form</title>
+<title>JavaScript Programs</title>
+
+<script>
+
+// Arithmetic Operations
+function arithmetic() {
+    let a = parseInt(prompt("Enter first number:"));
+    let b = parseInt(prompt("Enter second number:"));
+
+    let add = a + b;
+    let sub = a - b;
+    let mul = a * b;
+    let div = a / b;
+
+    document.getElementById("output").innerHTML =
+    "Addition: " + add + "<br>" +
+    "Subtraction: " + sub + "<br>" +
+    "Multiplication: " + mul + "<br>" +
+    "Division: " + div;
+}
+
+// Conditional Statement
+function checkNumber() {
+    let num = parseInt(prompt("Enter a number:"));
+    let result = "";
+
+    if(num > 0){
+        result = "Number is Positive";
+    }
+    else if(num < 0){
+        result = "Number is Negative";
+    }
+    else{
+        result = "Number is Zero";
+    }
+
+    document.getElementById("output").innerHTML = result;
+}
+
+// Loop Example
+function showLoop() {
+    let n = parseInt(prompt("Enter a number for loop:"));
+    let text = "";
+
+    for(let i=1; i<=n; i++){
+        text += i + " ";
+    }
+
+    document.getElementById("output").innerHTML =
+    "Numbers from 1 to " + n + ": <br>" + text;
+}
+
+</script>
 
 <style>
 body{
     font-family: Arial;
+    text-align: center;
     background-color:#f2f2f2;
 }
 
@@ -25,66 +67,38 @@ body{
     margin:auto;
     background:white;
     padding:20px;
+    margin-top:50px;
     border-radius:10px;
     box-shadow:0 0 10px gray;
 }
 
-input, select{
-    width:100%;
-    padding:8px;
-    margin:8px 0;
-}
-
 button{
-    background:#28a745;
-    color:white;
     padding:10px;
-    border:none;
-    width:100%;
-    font-size:16px;
+    margin:10px;
+    width:200px;
 }
 
-.result{
-    margin-top:15px;
-    color:green;
+#output{
+    margin-top:20px;
+    font-weight:bold;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h2>User Registration Form</h2>
+<h2>JavaScript Programs</h2>
 
-<form method="post">
+<button onclick="arithmetic()">Arithmetic Operations</button><br>
 
-<label>Full Name</label>
-<input type="text" name="name" required>
+<button onclick="checkNumber()">Conditional Statement</button><br>
 
-<label>Email</label>
-<input type="email" name="email" required>
+<button onclick="showLoop()">Loop Example</button>
 
-<label>Password</label>
-<input type="password" name="password" required>
-
-<label>Gender</label>
-<select name="gender">
-<option value="Male">Male</option>
-<option value="Female">Female</option>
-<option value="Other">Other</option>
-</select>
-
-<label>Date of Birth</label>
-<input type="date" name="dob">
-
-<button type="submit">Register</button>
-
-</form>
-
-<div class="result">
-<?php echo $message; ?>
-</div>
+<div id="output"></div>
 
 </div>
 
