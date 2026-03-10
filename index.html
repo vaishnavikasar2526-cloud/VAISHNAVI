@@ -1,104 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Form Validation</title>
-
-<script>
-function validateForm(){
-
-    let name = document.forms["myForm"]["name"].value;
-    let email = document.forms["myForm"]["email"].value;
-    let password = document.forms["myForm"]["password"].value;
-    let phone = document.forms["myForm"]["phone"].value;
-
-    if(name == ""){
-        alert("Name must be filled out");
-        return false;
-    }
-
-    if(email == ""){
-        alert("Email must be filled out");
-        return false;
-    }
-
-    if(!email.includes("@")){
-        alert("Enter a valid email");
-        return false;
-    }
-
-    if(password.length < 6){
-        alert("Password must be at least 6 characters");
-        return false;
-    }
-
-    if(phone.length != 10 || isNaN(phone)){
-        alert("Enter a valid 10-digit phone number");
-        return false;
-    }
-
-    alert("Form submitted successfully!");
-    return true;
-}
-</script>
-
-<style>
-body{
-    font-family: Arial;
-    background-color:#f2f2f2;
-}
-
-.container{
-    width:400px;
-    margin:auto;
-    margin-top:50px;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px gray;
-}
-
-input{
-    width:100%;
-    padding:8px;
-    margin:8px 0;
-}
-
-button{
-    width:100%;
-    padding:10px;
-    background:green;
-    color:white;
-    border:none;
-}
-</style>
-
+    <title>Hello World Page</title>
 </head>
-
 <body>
 
-<div class="container">
-
-<h2>Registration Form</h2>
-
-<form name="myForm" onsubmit="return validateForm()">
-
-<label>Name</label>
-<input type="text" name="name">
-
-<label>Email</label>
-<input type="text" name="email">
-
-<label>Password</label>
-<input type="password" name="password">
-
-<label>Phone Number</label>
-<input type="text" name="phone">
-
-<button type="submit">Submit</button>
-
-</form>
-
-</div>
+<h1>Hello World</h1>
 
 </body>
 </html>
