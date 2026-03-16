@@ -1,63 +1,51 @@
-<?php
-// Start Session
-session_start();
-
-// Set session variable
-$_SESSION["username"] = "Student";
-?>
-
+<!DOCTYPE html>
 <html>
 <head>
-<title>Session and Cookie Example</title>
+<title>Login Page</title>
 </head>
 
 <body>
 
-<h2>Session Start</h2>
+<?php
+if(isset($_SESSION['user']))
+{
+    echo "<h2>Welcome ".$_SESSION['user']."</h2>";
+?>
+
+<form method="post">
+<input type="submit" name="logout" value="Logout">
+</form>
 
 <?php
-
-if(isset($_SESSION["username"]))
-{
-    echo "Welcome " . $_SESSION["username"];
 }
 else
 {
-    echo "Please log in";
-}
-
 ?>
 
-<br><br>
-
-<h2>Destroy Session</h2>
+<h2>Login Form</h2>
 
 <?php
-
-session_destroy();
-echo "Session Destroyed";
-
+if(isset($error)){
+echo $error;
+}
 ?>
 
+<form method="post">
+
+Username:<br>
+<input type="text" name="username" required>
 <br><br>
 
-<h2>Cookie Session</h2>
+Password:<br>
+<input type="password" name="password" required>
+<br><br>
+
+<input type="submit" name="login" value="Login">
+
+</form>
 
 <?php
-
-// Set cookie
-setcookie("username","Student",time()+3600);
-
-// Display cookie
-if(isset($_COOKIE["username"]))
-{
-    echo "Welcome " . $_COOKIE["username"] . "<br/>";
 }
-else
-{
-    echo "Sorry... Not recognized!<br/>";
-}
-
 ?>
 
 </body>
