@@ -1,87 +1,62 @@
-<!DOCTYPE html>
+<?php
+// Start Session
+session_start();
+
+// Set session variable
+$_SESSION["username"] = "Student";
+?>
+
 <html>
 <head>
-<title>User Details</title>
+<title>Session and Cookie Example</title>
 </head>
+
 <body>
 
-<h2>User Details Form</h2>
-
-<form method="post">
-Name:<br>
-<input type="text" name="name" required><br><br>
-
-Email:<br>
-<input type="email" name="email" required><br><br>
-
-Phone:<br>
-<input type="text" name="phone" required><br><br>
-
-<input type="submit" name="submit" value="Submit">
-</form>
+<h2>Session Start</h2>
 
 <?php
 
-$servername = "localhost";
-$username = "vaishnavik_30";
-$password = "11";
-$dbname = "userdb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-die("Connection failed: " . $conn->connect_error);
-}
-
-if(isset($_POST['submit']))
+if(isset($_SESSION["username"]))
 {
-
-$name = $_POST['Vaishnavi Kasar'];
-$email = $_POST['vaishnaviaskar89@gmail.com'];
-$phone = $_POST['8591xxxxxx'];
-
-$sql = "INSERT INTO users (name,email,phone)
-VALUES ('$Vaishnavi','$vaishnavikasar89@gmail.com','$8591xxxxxx')";
-
-if($conn->query($sql) === TRUE)
-{
-echo "<h3>Data stored successfully</h3>";
+    echo "Welcome " . $_SESSION["username"];
 }
 else
 {
-echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Please log in";
 }
 
-}
+?>
 
-echo "<h2>Stored User Details</h2>";
+<br><br>
 
-$result = $conn->query("SELECT * FROM users");
+<h2>Destroy Session</h2>
 
-echo "<table border='1'>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-</tr>";
+<?php
 
-if ($result->num_rows > 0)
+session_destroy();
+echo "Session Destroyed";
+
+?>
+
+<br><br>
+
+<h2>Cookie Session</h2>
+
+<?php
+
+// Set cookie
+setcookie("username","Student",time()+3600);
+
+// Display cookie
+if(isset($_COOKIE["username"]))
 {
-while($row = $result->fetch_assoc())
+    echo "Welcome " . $_COOKIE["username"] . "<br/>";
+}
+else
 {
-echo "<tr>";
-echo "<td>".$row["id"]."</td>";
-echo "<td>".$row["name"]."</td>";
-echo "<td>".$row["email"]."</td>";
-echo "<td>".$row["phone"]."</td>";
-echo "</tr>";
+    echo "Sorry... Not recognized!<br/>";
 }
-}
-
-echo "</table>";
-
-$conn->close();
 
 ?>
 
