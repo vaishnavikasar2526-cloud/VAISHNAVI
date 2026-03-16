@@ -23,8 +23,8 @@ Phone:<br>
 <?php
 
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "vaishnavik_30";
+$password = "11";
 $dbname = "userdb";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -36,12 +36,12 @@ die("Connection failed: " . $conn->connect_error);
 if(isset($_POST['submit']))
 {
 
-$name = $_POST['name'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
+$name = $_POST['Vaishnavi Kasar'];
+$email = $_POST['vaishnaviaskar89@gmail.com'];
+$phone = $_POST['8591xxxxxx'];
 
 $sql = "INSERT INTO users (name,email,phone)
-VALUES ('$name','$email','$phone')";
+VALUES ('$Vaishnavi','$vaishnavikasar89@gmail.com','$8591xxxxxx')";
 
 if($conn->query($sql) === TRUE)
 {
