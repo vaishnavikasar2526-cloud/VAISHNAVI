@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+// Logout
+if(isset($_POST['logout'])){
+    session_destroy();
+    header("Location: ".$_SERVER['PHP_SELF']);
+}
+
+// Login
+if(isset($_POST['login'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // simple login check
+    if($username == "admin" && $password == "1234"){
+        $_SESSION['user'] = $username;
+    }
+    else{
+        $error = "Invalid Username or Password";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
