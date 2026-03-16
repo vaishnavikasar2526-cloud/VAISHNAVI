@@ -1,41 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JavaScript Programs</title>
+<title>User Details</title>
 </head>
 <body>
 
-<h2>JavaScript Programs: Arithmetic, Conditional, and Loops</h2>
+<h2>User Details Form</h2>
 
-<script>
-    // Arithmetic Operations
-    let a = 10;
-    let b = 5;
+<form method="post">
+Name:<br>
+<input type="text" name="name" required><br><br>
 
-    document.write("<h3>Arithmetic Operations</h3>");
-    document.write("a = " + a + ", b = " + b + "<br>");
-    document.write("Addition: " + (a + b) + "<br>");
-    document.write("Subtraction: " + (a - b) + "<br>");
-    document.write("Multiplication: " + (a * b) + "<br>");
-    document.write("Division: " + (a / b) + "<br>");
-    document.write("Modulus: " + (a % b) + "<br>");
+Email:<br>
+<input type="email" name="email" required><br><br>
 
-    // Conditional Statement
-    let number = 7;
+Phone:<br>
+<input type="text" name="phone" required><br><br>
 
-    document.write("<h3>Conditional Statement</h3>");
-    if (number % 2 == 0) {
-        document.write(number + " is Even<br>");
-    } else {
-        document.write(number + " is Odd<br>");
-    }
+<input type="submit" name="submit" value="Submit">
+</form>
 
-    // Loop Example
-    document.write("<h3>Loop Example (For Loop)</h3>");
-    for (let i = 1; i <= 5; i++) {
-        document.write("Number: " + i + "<br>");
-    }
-</script>
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "userdb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+die("Connection failed: " . $conn->connect_error);
+}
+
+if(isset($_POST['submit']))
+{
+
+$name = $_POST['name'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+
+$sql = "INSERT INTO users (name,email,phone)
+VALUES ('$name','$email','$phone')";
+
+if($conn->query($sql) === TRUE)
+{
+echo "<h3>Data stored successfully</h3>";
+}
+else
+{
+echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+}
+
+echo "<h2>Stored User Details</h2>";
+
+$result = $conn->query("SELECT * FROM users");
+
+echo "<table border='1'>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+</tr>";
+
+if ($result->num_rows > 0)
+{
+while($row = $result->fetch_assoc())
+{
+echo "<tr>";
+echo "<td>".$row["id"]."</td>";
+echo "<td>".$row["name"]."</td>";
+echo "<td>".$row["email"]."</td>";
+echo "<td>".$row["phone"]."</td>";
+echo "</tr>";
+}
+}
+
+echo "</table>";
+
+$conn->close();
+
+?>
 
 </body>
 </html>
